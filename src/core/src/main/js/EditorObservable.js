@@ -193,13 +193,19 @@ define(
         }
 
         if (!self.inline) {
-          self.getBody().onload = null;
-          self.dom.unbind(self.getWin());
-          self.dom.unbind(self.getDoc());
+          if (self.getBody()) {
+            self.getBody().onload = null;
+          }
+          if (self.dom) {
+            self.dom.unbind(self.getWin());
+            self.dom.unbind(self.getDoc());
+          }
         }
 
-        self.dom.unbind(self.getBody());
-        self.dom.unbind(self.getContainer());
+        if (self.dom) {
+          self.dom.unbind(self.getBody());
+          self.dom.unbind(self.getContainer());
+        }
       }
     };
 

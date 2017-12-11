@@ -1235,15 +1235,21 @@ define(
             }
 
             DOM.setStyle(self.id, 'display', self.orgDisplay);
-            self.getBody().onload = null; // Prevent #6816
+            if (self.getBody()) {
+              self.getBody().onload = null; // Prevent #6816
+            }
           }
 
           self.fire('remove');
 
           self.editorManager.remove(self);
           DOM.remove(self.getContainer());
-          self._selectionOverrides.destroy();
-          self.editorUpload.destroy();
+          if (self._selectionOverrides) {
+            self._selectionOverrides.destroy();
+          }
+          if (self.editorUpload) {
+            self.editorUpload.destroy();
+          }
           self.destroy();
         }
       },
@@ -1280,8 +1286,12 @@ define(
           }
 
           // Destroy controls, selection and dom
-          self.selection.destroy();
-          self.dom.destroy();
+          if (self.selection) {
+            self.selection.destroy();
+          }
+          if (self.dom) {
+            self.dom.destroy();
+          }
         }
 
         form = self.formElement;
